@@ -1,0 +1,19 @@
+{
+    "name": "sendgo/wordpress",
+    "description": "Sendgo WordPress/WooCommerce 플러그인 — 카카오 알림톡/친구톡, SMS/LMS/MMS 발송 및 주문 알림 연동",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "keywords": ["sendgo", "kakao", "alimtalk", "wordpress", "woocommerce", "sms", "notification", "korea"],
+    "homepage": "https://sendgo.io",
+    "authors": [{"name": "Sendgo", "email": "dev@sendgo.io"}],
+    "require": {
+        "php": ">=8.2",
+        "sendgo/php": "^1.0"
+    },
+    "autoload": {
+        "classmap": ["includes/"]
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {"sort-packages": true}
+}
