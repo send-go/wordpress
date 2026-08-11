@@ -46,12 +46,29 @@ WooCommerce가 활성화되어 있으면 다음 주문 상태 변경 시 구매�
 - `주문 완료` (`woocommerce_order_status_completed`)
 - `처리 중` (`woocommerce_order_status_processing`)
 
-**설정 > Sendgo > WooCommerce 주문 알림** 섹션에서 다음을 설정합니다.
+**설정 > Sendgo > WooCommerce 주문 알림** 섹션에서 **상태별로** 다음을 설정합니다.
 
-- **주문 완료 알림톡 템플릿 코드**: 발송할 알림톡 템플릿 코드. 템플릿의 첫 번째 변수(`var1`)로 주문 번호가 전달됩니다.
-- **알림톡 실패 시 SMS 대체 내용**: 알림톡 발송이 실패하거나 템플릿 코드가 없을 때 발송할 SMS 본문. `{order_number}` 플레이스홀더를 사용할 수 있습니다.
+| 필드 | 설명 |
+| --- | --- |
+| `[주문 완료] 알림톡 템플릿 코드` | 완료 상태에서 보낼 템플릿 코드. 첫 번째 변수(`#{var1}`)로 주문 번호가 전달됩니다. |
+| `[주문 완료] 알림톡 실패 시 SMS 대체 내용` | 알림톡이 실패하거나 템플릿 코드가 비어 있을 때 보낼 SMS 본문. `{order_number}` 플레이스홀더 사용 가능. |
+| `[처리 중] 알림톡 템플릿 코드` | 처리 중 상태에서 보낼 템플릿 코드. |
+| `[처리 중] 알림톡 실패 시 SMS 대체 내용` | 처리 중 상태의 SMS 대체 본문. |
+
+**비워둔 상태는 아무것도 발송하지 않습니다.** 두 상태 모두 채우면 주문마다
+알림이 두 번(처리 중 + 완료) 발송되므로, 실제로 알려야 하는 상태만 채우세요.
+
+같은 주문·같은 상태로는 한 번만 발송됩니다. 발송에 성공하면 주문 메타
+(`_sendgo_notified_completed` / `_sendgo_notified_processing`)에 기록해두기 때문에,
+관리자가 주문을 다시 저장하거나 다른 플러그인이 상태를 재설정해도 중복
+발송되지 않습니다. 발송이 실패하면 기록하지 않으므로 다음 상태 변경에서 재시도됩니다.
 
 발송 실패는 결제/주문 흐름을 절대 중단시키지 않으며, WooCommerce 로그(source: `sendgo`)에 기록됩니다.
+
+> **1.0.x에서 올라오는 경우** — 예전 버전은 두 상태가 `order_template_code`
+> 하나를 공유했기 때문에 처리 중 → 완료로 넘어가는 주문에 같은 알림이 두 번
+> 발송됐습니다. 이제 완료 상태만 기존 키를 그대로 쓰고, 처리 중은 새 필드를
+> 채워야 발송됩니다. 기존 설정은 그대로 동작하며 중복 발송만 사라집니다.
 
 ## 사용법 (프로그래밍 방식)
 
@@ -73,6 +90,38 @@ if ($client) {
         'contacts' => [['contact' => '01012345678']],
     ]);
 }
+```
+
+### 브랜드메시지 (친구톡의 후속 채널)
+
+브랜드메시지는 채널 친구가 아닌 수신자에게도 보낼 수 있고(`targeting` = `N`),
+수신 동의한 전체 채널 친구에게 동보 발송할 수도 있습니다(`targeting` = `F`).
+메시지 타입은 친구톡과 1:1로 대응합니다(`FT`→`BT`, `FI`→`BI`, `FW`→`BW`,
+`FL`→`BL`, `FC`→`BC`, `FM`→`BM`, `FP`→`BP`, `FA`→`BA`).
+
+> **v2 전용입니다.** **설정 > Sendgo > API 버전**을 `v2`로 바꿔야 동작합니다.
+> 플러그인 기본값은 `v1`입니다.
+
+```php
+$client = Sendgo_Plugin::instance()->client();
+
+// 단건 발송 — targeting 이 M/N/I 이면 contacts 가 필요합니다.
+$client->brandMessage->send([
+    'targeting'          => 'M',
+    'messageType'        => 'FL',
+    'friendTemplateUuid' => '9cd5460b-6458-4edc-9b11-c26d3013c340',
+    'contacts'           => [['contact' => '01012345678', 'var1' => '29,000원']],
+]);
+
+// 동보 발송 — 수신 동의한 전체 채널 친구 (수신자 목록 없음)
+$result = $client->brandMessage->broadcast([
+    'messageType'        => 'FW',
+    'friendTemplateUuid' => '9cd5460b-6458-4edc-9b11-c26d3013c340',
+]);
+
+// 동보 발송은 업스트림에서 비동기 처리되므로 진행 상황을 조회합니다.
+$client->brandMessage->campaign($result['data']['campaignId']);
+$client->brandMessage->campaigns(['count' => 10]);
 ```
 
 ## FAQ

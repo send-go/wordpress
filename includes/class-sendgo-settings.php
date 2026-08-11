@@ -111,23 +111,27 @@ class Sendgo_Settings
             self::PAGE_SLUG
         );
 
-        add_settings_field(
-            'order_template_code',
-            __('주문 완료 알림톡 템플릿 코드', 'sendgo'),
-            [$this, 'render_text_field'],
-            self::PAGE_SLUG,
-            'sendgo_woo_section',
-            ['key' => 'order_template_code', 'is_secret' => false]
-        );
+        // 주문 상태별 필드. 상태마다 값을 따로 두어야 처리 중 → 완료로
+        // 넘어가는 주문에 같은 알림이 두 번 발송되지 않는다.
+        $woo_fields = [
+            'order_template_code'      => __('[주문 완료] 알림톡 템플릿 코드', 'sendgo'),
+            'order_sms_fallback'       => __('[주문 완료] 알림톡 실패 시 SMS 대체 내용', 'sendgo'),
+            'processing_template_code' => __('[처리 중] 알림톡 템플릿 코드', 'sendgo'),
+            'processing_sms_fallback'  => __('[처리 중] 알림톡 실패 시 SMS 대체 내용', 'sendgo'),
+        ];
 
-        add_settings_field(
-            'order_sms_fallback',
-            __('알림톡 실패 시 SMS 대체 내용', 'sendgo'),
-            [$this, 'render_textarea_field'],
-            self::PAGE_SLUG,
-            'sendgo_woo_section',
-            ['key' => 'order_sms_fallback']
-        );
+        foreach ($woo_fields as $key => $label) {
+            $is_textarea = str_ends_with($key, '_sms_fallback');
+
+            add_settings_field(
+                $key,
+                $label,
+                [$this, $is_textarea ? 'render_textarea_field' : 'render_text_field'],
+                self::PAGE_SLUG,
+                'sendgo_woo_section',
+                ['key' => $key, 'is_secret' => false]
+            );
+        }
     }
 
     /**
@@ -144,7 +148,15 @@ class Sendgo_Settings
             return $output;
         }
 
-        $text_keys = ['access_key', 'secret_key', 'kakao_sender_key', 'sms_sender_key', 'order_template_code', 'url'];
+        $text_keys = [
+            'access_key',
+            'secret_key',
+            'kakao_sender_key',
+            'sms_sender_key',
+            'order_template_code',
+            'processing_template_code',
+            'url',
+        ];
         foreach ($text_keys as $key) {
             if (isset($input[$key])) {
                 $output[$key] = sanitize_text_field((string) $input[$key]);
@@ -156,8 +168,10 @@ class Sendgo_Settings
         $output['api_version'] = in_array($version, ['v1', 'v2'], true) ? $version : 'v1';
 
         // SMS 대체 내용은 여러 줄 허용.
-        if (isset($input['order_sms_fallback'])) {
-            $output['order_sms_fallback'] = sanitize_textarea_field((string) $input['order_sms_fallback']);
+        foreach (['order_sms_fallback', 'processing_sms_fallback'] as $key) {
+            if (isset($input[$key])) {
+                $output[$key] = sanitize_textarea_field((string) $input[$key]);
+            }
         }
 
         return $output;
@@ -198,7 +212,8 @@ class Sendgo_Settings
      */
     public function render_woo_section(): void
     {
-        echo '<p>' . esc_html__('WooCommerce 주문이 완료(또는 처리 중)되면 구매자 연락처로 알림톡을 발송합니다.', 'sendgo') . '</p>';
+        echo '<p>' . esc_html__('WooCommerce 주문 상태가 바뀌면 구매자 연락처로 알림톡을 발송합니다. 상태별로 값을 따로 설정하며, 비워둔 상태는 발송하지 않습니다.', 'sendgo') . '</p>';
+        echo '<p>' . esc_html__('템플릿 코드의 첫 번째 변수(#{var1})로 주문 번호가 전달됩니다. SMS 대체 내용에는 {order_number} 플레이스홀더를 쓸 수 있습니다.', 'sendgo') . '</p>';
     }
 
     /**
