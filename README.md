@@ -124,6 +124,34 @@ $client->brandMessage->campaign($result['data']['campaignId']);
 $client->brandMessage->campaigns(['count' => 10]);
 ```
 
+### 짧은 URL (클릭 반응 분석)
+
+메시지 본문에 넣는 링크를 줄이고, 실제로 눌렸는지 집계합니다. 문자는 한 통에
+들어가는 바이트가 정해져 있어 긴 링크가 그대로 들어가면 LMS 로 넘어가 단가가 올라갑니다.
+
+> **v2 전용입니다.**
+
+```php
+$client = Sendgo_Plugin::instance()->client();
+
+// 생성 — 같은 원본 URL 이면 기존 코드를 재사용합니다(forceNew 로 강제 신규 생성).
+$link = $client->shortUrl->create([
+    'targetUrl' => 'https://shop.example.com/orders/1024',
+    'title'     => '10월 주문 안내',
+]);
+
+$link['data']['shortUrl'];  // https://sendgo.io/s/aB3xY7z
+
+// 클릭 반응 — 일별 추이 · 디바이스 · 유입경로 · 국가
+$client->shortUrl->stats($link['data']['uuid'], ['from' => '2026-08-01', 'to' => '2026-08-11']);
+
+$client->shortUrl->list(['count' => 20]);
+$client->shortUrl->show($link['data']['uuid']);
+
+// 중지 — 리다이렉트만 멈추고(410 Gone) 통계는 남습니다.
+$client->shortUrl->deactivate($link['data']['uuid']);
+```
+
 ## FAQ
 
 **Q. WooCommerce 없이도 사용할 수 있나요?**
@@ -134,6 +162,17 @@ Access Key 또는 Secret Key가 설정되지 않았거나, `composer install`을
 
 **Q. 인증 키는 어디에 저장되나요?**
 `sendgo_options` 옵션에 서버 사이드로만 저장됩니다. 프런트엔드에 노출되지 않습니다.
+
+## 변경 사항
+
+### 1.1.0 (2026-08-11)
+
+- **버그 수정: WooCommerce 중복 알림 발송** — 주문 상태가 같은 값으로 다시 저장되면
+  알림이 다시 나갔습니다. `_sendgo_notified_{status}` 주문 메타로 상태별 1회만
+  발송하도록 막았습니다. 발송이 실패하면 메타를 남기지 않아 다음 상태 변경에서 재시도됩니다.
+- 주문 상태별로 템플릿을 따로 지정할 수 있게 옵션을 분리했습니다.
+- 브랜드메시지(친구톡 후속 채널) 사용법 추가
+- 짧은 URL 사용법 추가
 
 ## 라이선스
 
