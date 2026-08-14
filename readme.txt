@@ -3,7 +3,7 @@ Contributors: sendgo
 Tags: kakao, alimtalk, sms, woocommerce, notification
 Requires at least: 6.0
 Tested up to: 6.6
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 Requires PHP: 8.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
