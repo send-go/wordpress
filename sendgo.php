@@ -2,8 +2,8 @@
 /**
  * Plugin Name:       Sendgo
  * Plugin URI:        https://sendgo.io
- * Description:       카카오 알림톡/친구톡 및 SMS/LMS/MMS를 발송하는 Sendgo 연동 플러그인. WooCommerce 주문 상태 변경 시 알림톡을 자동 발송합니다.
- * Version:           1.1.0
+ * Description:       카카오 알림톡/브랜드메시지 및 SMS/LMS/MMS를 발송하는 Sendgo 연동 플러그인. WooCommerce 주문 상태 변경 시 알림톡을 자동 발송합니다.
+ * Version:           1.2.0
  * Requires at least: 6.0
  * Requires PHP:      8.2
  * Author:            Sendgo

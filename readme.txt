@@ -3,12 +3,12 @@ Contributors: sendgo
 Tags: kakao, alimtalk, sms, woocommerce, notification
 Requires at least: 6.0
 Tested up to: 6.6
-Stable tag: 1.0.0
+Stable tag: 1.2.0
 Requires PHP: 8.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
 
-카카오 알림톡/친구톡 및 SMS/LMS/MMS 발송과 WooCommerce 주문 알림을 지원하는 Sendgo 연동 플러그인입니다.
+카카오 알림톡/브랜드메시지 및 SMS/LMS/MMS 발송과 WooCommerce 주문 알림을 지원하는 Sendgo 연동 플러그인입니다.
 
 == Description ==
 
@@ -16,7 +16,7 @@ Sendgo 플러그인은 한국 메시징 서비스 Sendgo(https://sendgo.io)를 W
 
 주요 기능:
 
-* 카카오 알림톡 / 친구톡 발송
+* 카카오 알림톡 / 브랜드메시지 발송
 * SMS / LMS / MMS 발송
 * WooCommerce 주문 완료 및 처리 중 상태 변경 시 구매자에게 알림톡 자동 발송
 * 알림톡 발송 실패 시 SMS 대체 발송 지원

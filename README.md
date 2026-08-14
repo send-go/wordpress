@@ -1,6 +1,6 @@
 # Sendgo for WordPress / WooCommerce
 
-카카오 알림톡/친구톡 및 SMS/LMS/MMS 발송과 WooCommerce 주문 알림을 지원하는 Sendgo 연동 WordPress 플러그인입니다.
+카카오 알림톡/브랜드메시지 및 SMS/LMS/MMS 발송과 WooCommerce 주문 알림을 지원하는 Sendgo 연동 WordPress 플러그인입니다.
 
 Sendgo 코어 SDK([`sendgo/php`](https://sendgo.io))를 Composer로 번들하여 동작합니다.
 
@@ -33,7 +33,7 @@ WordPress 관리자 > 플러그인 화면에서 **Sendgo**를 활성화합니다
 | --- | --- |
 | Access Key | Sendgo 콘솔에서 발급받은 액세스 키 |
 | Secret Key | Sendgo 콘솔에서 발급받은 시크릿 키 |
-| 카카오 발신 키 | 알림톡/친구톡 발신 키 |
+| 카카오 발신 키 | 알림톡/브랜드메시지 발신 키 |
 | SMS 발신 키 | SMS/LMS/MMS 발신 키 |
 | API 버전 | `v1` 또는 `v2` 선택 |
 
@@ -164,6 +164,15 @@ Access Key 또는 Secret Key가 설정되지 않았거나, `composer install`을
 `sendgo_options` 옵션에 서버 사이드로만 저장됩니다. 프런트엔드에 노출되지 않습니다.
 
 ## 변경 사항
+
+### 1.2.0 (2026-08-14)
+
+- **친구톡 Deprecated 표기** — 친구톡은 카카오 정책에 따라 2025-12-31 종료되었고,
+  2026-01-01 부터 발송 요청이 브랜드메시지(자유형)로 자동 대체 발송됩니다.
+  관련 API 에 각 언어의 표준 deprecation 표기를 달았습니다.
+- 자유 본문 타입(`FT`/`FI`/`FW`)의 개별 발송 경로는 아직 친구톡 API 뿐이라는 점을
+  문서에 명시했습니다 — 브랜드메시지 API 는 그 조합에 `NOT_A_BRAND_MESSAGE` 를 반환합니다.
+- 브랜드메시지 전환 안내와 메시지 타입 1:1 대응표를 README 에 추가했습니다.
 
 ### 1.1.0 (2026-08-11)
 
