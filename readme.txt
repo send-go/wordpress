@@ -3,7 +3,7 @@ Contributors: sendgo
 Tags: kakao, alimtalk, sms, woocommerce, notification
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 Requires PHP: 8.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
@@ -43,6 +43,10 @@ Sendgo 플러그인은 한국 메시징 서비스 Sendgo(https://sendgo.io)를 W
 Sendgo 콘솔(https://sendgo.io)에서 발급받을 수 있습니다.
 
 == Changelog ==
+
+= 1.2.3 =
+* 플러그인 헤더의 Plugin URI 와 Author URI 가 같아 wordpress.org 업로드가 거부되던
+  문제 수정. Plugin URI 는 저장소, Author URI 는 서비스 홈으로 분리했습니다.
 
 = 1.2.2 =
 * wordpress.org 배포 준비. 코어 SDK(sendgo/php)를 vendor/ 에 번들해 Composer 없이
