@@ -142,7 +142,7 @@ class Sendgo_WooCommerce
             // 발송 실패는 로그만 남기고 결제/주문 흐름에 영향을 주지 않는다.
             if (function_exists('wc_get_logger')) {
                 wc_get_logger()->error(
-                    sprintf('Sendgo 주문 알림 발송 실패 (order=%d, status=%s): %s', $order_id, $context, $e->getMessage()),
+                    sprintf('Sendgo order notification failed (order=%d, status=%s): %s', $order_id, $context, $e->getMessage()),
                     ['source' => 'sendgo']
                 );
             }

@@ -1,6 +1,6 @@
 {
     "name": "sendgo/wordpress",
-    "description": "Sendgo WordPress/WooCommerce 플러그인 — 카카오 알림톡/브랜드메시지, SMS/LMS/MMS 발송 및 주문 알림 연동",
+    "description": "Sendgo WordPress/WooCommerce plugin - Kakao Alimtalk/Brand Message, SMS/LMS/MMS sending and order notification integration",
     "type": "wordpress-plugin",
     "license": "MIT",
     "keywords": ["sendgo", "kakao", "alimtalk", "brand-message", "wordpress", "woocommerce", "sms", "notification", "korea"],

@@ -43,7 +43,7 @@ class Sendgo_Settings
     public function add_menu(): void
     {
         add_options_page(
-            __('Sendgo 설정', 'sendgo'),
+            __('Sendgo Settings', 'sendgo'),
             __('Sendgo', 'sendgo'),
             'manage_options',
             self::PAGE_SLUG,
@@ -68,7 +68,7 @@ class Sendgo_Settings
 
         add_settings_section(
             'sendgo_api_section',
-            __('API 인증 정보', 'sendgo'),
+            __('API Credentials', 'sendgo'),
             [$this, 'render_api_section'],
             self::PAGE_SLUG
         );
@@ -77,8 +77,8 @@ class Sendgo_Settings
         $text_fields = [
             'access_key'       => __('Access Key', 'sendgo'),
             'secret_key'       => __('Secret Key', 'sendgo'),
-            'kakao_sender_key' => __('카카오 발신 키 (Kakao Sender Key)', 'sendgo'),
-            'sms_sender_key'   => __('SMS 발신 키 (SMS Sender Key)', 'sendgo'),
+            'kakao_sender_key' => __('Kakao Sender Key', 'sendgo'),
+            'sms_sender_key'   => __('SMS Sender Key', 'sendgo'),
         ];
 
         foreach ($text_fields as $key => $label) {
@@ -97,7 +97,7 @@ class Sendgo_Settings
 
         add_settings_field(
             'api_version',
-            __('API 버전', 'sendgo'),
+            __('API Version', 'sendgo'),
             [$this, 'render_api_version_field'],
             self::PAGE_SLUG,
             'sendgo_api_section'
@@ -106,7 +106,7 @@ class Sendgo_Settings
         // WooCommerce 주문 알림 섹션.
         add_settings_section(
             'sendgo_woo_section',
-            __('WooCommerce 주문 알림', 'sendgo'),
+            __('WooCommerce Order Notifications', 'sendgo'),
             [$this, 'render_woo_section'],
             self::PAGE_SLUG
         );
@@ -114,10 +114,10 @@ class Sendgo_Settings
         // 주문 상태별 필드. 상태마다 값을 따로 두어야 처리 중 → 완료로
         // 넘어가는 주문에 같은 알림이 두 번 발송되지 않는다.
         $woo_fields = [
-            'order_template_code'      => __('[주문 완료] 알림톡 템플릿 코드', 'sendgo'),
-            'order_sms_fallback'       => __('[주문 완료] 알림톡 실패 시 SMS 대체 내용', 'sendgo'),
-            'processing_template_code' => __('[처리 중] 알림톡 템플릿 코드', 'sendgo'),
-            'processing_sms_fallback'  => __('[처리 중] 알림톡 실패 시 SMS 대체 내용', 'sendgo'),
+            'order_template_code'      => __('[Order completed] Alimtalk template code', 'sendgo'),
+            'order_sms_fallback'       => __('[Order completed] SMS text used if Alimtalk fails', 'sendgo'),
+            'processing_template_code' => __('[Processing] Alimtalk template code', 'sendgo'),
+            'processing_sms_fallback'  => __('[Processing] SMS text used if Alimtalk fails', 'sendgo'),
         ];
 
         foreach ($woo_fields as $key => $label) {
@@ -155,12 +155,23 @@ class Sendgo_Settings
             'sms_sender_key',
             'order_template_code',
             'processing_template_code',
-            'url',
         ];
         foreach ($text_keys as $key) {
             if (isset($input[$key])) {
                 $output[$key] = sanitize_text_field((string) $input[$key]);
             }
+        }
+
+        // API 베이스 URL 재정의. 설정 화면에 필드가 없고 wp-cli / update_option 으로만
+        // 설정한다. 폼 제출에는 포함되지 않으므로, 저장할 때마다 값이 사라지지 않게
+        // 기존 값을 그대로 옮겨 준다.
+        $existing = get_option(self::OPTION_NAME, []);
+        $existing = is_array($existing) ? $existing : [];
+
+        if (isset($input['url'])) {
+            $output['url'] = esc_url_raw((string) $input['url']);
+        } elseif (isset($existing['url'])) {
+            $output['url'] = esc_url_raw((string) $existing['url']);
         }
 
         // API 버전은 허용된 값만 저장.
@@ -187,7 +198,7 @@ class Sendgo_Settings
         }
         ?>
         <div class="wrap">
-            <h1><?php echo esc_html__('Sendgo 설정', 'sendgo'); ?></h1>
+            <h1><?php echo esc_html__('Sendgo Settings', 'sendgo'); ?></h1>
             <form action="options.php" method="post">
                 <?php
                 settings_fields('sendgo_settings_group');
@@ -204,7 +215,7 @@ class Sendgo_Settings
      */
     public function render_api_section(): void
     {
-        echo '<p>' . esc_html__('Sendgo 콘솔(https://sendgo.io)에서 발급받은 인증 정보를 입력하세요.', 'sendgo') . '</p>';
+        echo '<p>' . esc_html__('Enter the credentials issued to you in the Sendgo console at https://sendgo.io.', 'sendgo') . '</p>';
     }
 
     /**
@@ -212,8 +223,8 @@ class Sendgo_Settings
      */
     public function render_woo_section(): void
     {
-        echo '<p>' . esc_html__('WooCommerce 주문 상태가 바뀌면 구매자 연락처로 알림톡을 발송합니다. 상태별로 값을 따로 설정하며, 비워둔 상태는 발송하지 않습니다.', 'sendgo') . '</p>';
-        echo '<p>' . esc_html__('템플릿 코드의 첫 번째 변수(#{var1})로 주문 번호가 전달됩니다. SMS 대체 내용에는 {order_number} 플레이스홀더를 쓸 수 있습니다.', 'sendgo') . '</p>';
+        echo '<p>' . esc_html__('When a WooCommerce order changes status, an Alimtalk message is sent to the buyer. Each status is configured separately, and a status left blank sends nothing.', 'sendgo') . '</p>';
+        echo '<p>' . esc_html__('The order number is passed as the first template variable (#{var1}). In the SMS text you can use the {order_number} placeholder.', 'sendgo') . '</p>';
     }
 
     /**
