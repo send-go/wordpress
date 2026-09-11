@@ -3,7 +3,7 @@ Contributors: amuz
 Tags: kakao, alimtalk, sms, woocommerce, notification
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Requires PHP: 8.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
@@ -95,6 +95,13 @@ No. Each order status is recorded on the order once its notification succeeds, s
 order or a status change triggered by another plugin will not send a duplicate.
 
 == Changelog ==
+
+= 1.3.1 =
+* Plugin version headers corrected. 1.3.0 shipped with the header, SENDGO_VERSION and
+  Stable tag still reading 1.2.4, so WordPress did not offer it as an update.
+* Corrected the note that said identity verification could not be done through the API.
+  A mobile sender number can be filed with an identity document attached, and the Kakao
+  channel verification code is entered on your own screen.
 
 = 1.3.0 =
 * Management API exposed. The core SDK 1.3.0 services -- kakaoSenders, noticeTemplates,
