@@ -132,6 +132,46 @@ if ($client) {
 | `$client->friendtalk` | 카카오 친구톡 |
 | `$client->brandMessage` | 카카오 브랜드메시지 (v2 전용) |
 | `$client->sms` | SMS / LMS / MMS |
+| `$client->shortUrl` | 짧은 URL (v2 전용) |
+
+관리(등록·심사) 서비스도 같은 방식으로 접근합니다. **모두 v2 전용**입니다.
+
+| 속성 | 하는 일 | 계정 |
+| --- | --- | --- |
+| `$client->kakaoSenders` | 카카오 채널 인증·등록·동기화 | 기업 |
+| `$client->noticeTemplates` | 알림톡 템플릿 CRUD, 검수 요청 | 기업 |
+| `$client->brandTemplates` | 브랜드메시지 템플릿 CRUD | 기업 |
+| `$client->senderRegistration` | 발신번호 등록 신청 | 개인·기업 |
+| `$client->messageTemplates` | 문자 상용구 템플릿 CRUD | 개인·기업 |
+| `$client->kakaoImages` | 카카오 이미지 업로드 — 템플릿용 URL 발급 | 기업 |
+| `$client->rejectedNumbers` | 수신거부(080) 번호 조회 | 개인·기업 |
+| `$client->webhook` | 이벤트 웹훅 구독 — 심사 결과 수신 | 개인·기업 |
+
+```php
+// 알림톡 템플릿을 플러그인에서 직접 등록하고 검수를 요청한다
+$created = $client->noticeTemplates->create([
+    'kakaoSenderKey'        => get_option('sendgo_kakao_sender_key'),
+    'templateName'          => '주문 접수 안내',
+    'templateContent'       => '#{name}님, 주문 #{orderNo}이 접수되었습니다.',
+    'templateMessageType'   => 'BA',
+    'templateEmphasizeType' => 'NONE',
+    'categoryCode'          => '001001',
+    'messagePurpose'        => 'order_delivery',
+    'legalBasis'            => 'transaction',
+    'benefitOrigin'         => 'none',
+    'expiryType'            => 'none',
+    'optInReviewConfirmed'  => true,
+    'ctaClearConfirmed'     => true,
+    'policyConfirmed'       => true,
+]);
+
+$client->noticeTemplates->requestInspection($created['data']['template']['templateCode']);
+```
+
+검수 결과는 즉시 오지 않습니다. WP-Cron 으로 `sync()` 를 돌려
+`inspectionStatus` 가 `APR` 이 되는지 확인하세요. 카카오 **채널 등록**의
+인증번호와 **휴대폰 발신번호**의 본인인증은 사람이 해야 하므로 API 로
+대체되지 않습니다.
 
 클라이언트는 요청 단위로 메모이즈되므로 `Sendgo_Plugin::instance()->client()` 를 여러 번 불러도 비용이 없습니다.
 
@@ -305,6 +345,19 @@ CDN 뒤에 있으면 브라우저에 보이는 IP 와 다를 수 있습니다.
 - 플러그인 헤더(1.2.1)와 `SENDGO_VERSION` 상수(1.1.0)의 버전 불일치 수정.
 - **코어 SDK 를 찾지 못하면 조용히 아무것도 하지 않던 문제 수정** — 설치·활성화·설정까지 정상으로
   보이는데 알림만 안 나가는 상태였습니다. 이제 관리자 알림으로 원인을 표시합니다.
+
+### 1.3.0 (2026-09-11)
+
+- **관리 API 노출** — 코어 1.3.0 의 `kakaoSenders` · `noticeTemplates` ·
+  `brandTemplates` · `senderRegistration` · `messageTemplates` 를
+  `Sendgo_Plugin::instance()->client()` 에서 그대로 쓸 수 있습니다.
+  알림톡 템플릿 등록과 검수 요청을 플러그인 안에서 처리할 수 있습니다.
+- **이벤트 웹훅** 추가 — 발신번호 승인, 알림톡 검수 결과, 채널 차단,
+  브랜드메시지 타겟팅 결과를 구독해 받습니다. 서명은 받은 원본 바이트로
+  검증합니다(SDK 에 검증 헬퍼 포함).
+- **카카오 이미지 업로드** 추가 — 브랜드메시지 템플릿의 `imageUrl` 은 카카오가
+  호스팅하는 URL 이어야 하는데, 그 URL 을 얻는 길이 콘솔에만 있었습니다.
+- **수신거부(080) 조회** 추가 — 자기 DB 의 수신 상태를 맞출 수 있습니다.
 
 ### 1.2.1 (2026-08-14)
 
