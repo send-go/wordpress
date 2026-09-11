@@ -3,7 +3,7 @@ Contributors: amuz
 Tags: kakao, alimtalk, sms, woocommerce, notification
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 1.2.4
+Stable tag: 1.3.0
 Requires PHP: 8.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
@@ -95,6 +95,20 @@ No. Each order status is recorded on the order once its notification succeeds, s
 order or a status change triggered by another plugin will not send a duplicate.
 
 == Changelog ==
+
+= 1.3.0 =
+* Management API exposed. The core SDK 1.3.0 services -- kakaoSenders, noticeTemplates,
+  brandTemplates, senderRegistration, messageTemplates, kakaoImages, rejectedNumbers and
+  webhook -- are reachable from Sendgo_Plugin::instance()->client(). Alimtalk templates can
+  be registered and submitted for review from inside the plugin.
+* Event webhooks added. Subscribe to sender-number approval, Alimtalk review results,
+  channel blocking and brand-message targeting results. Verify the signature against the
+  raw received bytes (the SDK ships a helper).
+* Kakao image upload added. A brand-message template imageUrl must be a Kakao-hosted URL,
+  and until now the only way to obtain one was the web console.
+* Opt-out (080) number lookup added, so a store can reconcile its own subscriber state.
+* Sender numbers can now be filed through the API with identity documents attached,
+  so a shop owner no longer has to visit sendgo.io to complete PASS verification.
 
 = 1.2.4 =
 * Translated the readme, the plugin header description and all translatable strings into

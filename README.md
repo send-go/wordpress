@@ -168,10 +168,14 @@ $created = $client->noticeTemplates->create([
 $client->noticeTemplates->requestInspection($created['data']['template']['templateCode']);
 ```
 
-검수 결과는 즉시 오지 않습니다. WP-Cron 으로 `sync()` 를 돌려
-`inspectionStatus` 가 `APR` 이 되는지 확인하세요. 카카오 **채널 등록**의
-인증번호와 **휴대폰 발신번호**의 본인인증은 사람이 해야 하므로 API 로
-대체되지 않습니다.
+검수 결과는 즉시 오지 않습니다. WP-Cron 으로 `sync()` 를 돌리거나,
+`$client->webhook` 으로 구독해 결과를 밀어 받으세요.
+
+사람이 개입하는 지점은 **카카오 채널 인증번호 하나**뿐이고, 그마저도 워드프레스
+화면에서 끝납니다 — `requestToken()` 이 채널 관리자 휴대폰으로 SMS 를 보내고,
+관리자가 그 코드를 입력하면 `create()` 가 받습니다. **휴대폰 발신번호**는 PASS
+대신 신분증 사본을 첨부해 접수하면 sendgo 운영자가 대신 심사합니다. 어느 쪽도
+sendgo.io 콘솔을 거치지 않습니다.
 
 클라이언트는 요청 단위로 메모이즈되므로 `Sendgo_Plugin::instance()->client()` 를 여러 번 불러도 비용이 없습니다.
 
