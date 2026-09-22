@@ -118,11 +118,15 @@ class Sendgo_Plugin
         return $this->client;
     }
 
-    /**
-     * 관리자 설정 핸들러를 반환한다.
-     *
-     * @return Sendgo_Settings|null
-     */
+    /** 서버에서 전달받은 에이전트 토큰으로 계정 클라이언트를 만듭니다. */
+    public function account_client(string $agentToken): \Sendgo\Php\AccountClient
+    {
+        $options = get_option('sendgo_options', []);
+        $url = is_array($options) && !empty($options['url']) ? (string) $options['url'] : 'https://sendgo.io';
+        return new \Sendgo\Php\AccountClient($agentToken, $url);
+    }
+
+    /** 관리자 설정 핸들러를 반환합니다. */
     public function settings(): ?Sendgo_Settings
     {
         return $this->settings;
