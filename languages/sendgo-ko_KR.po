@@ -1,7 +1,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Sendgo 1.5.1\n"
+"Project-Id-Version: Sendgo 1.5.2\n"
 "PO-Revision-Date: 2026-09-24 00:00+0900\n"
 "Last-Translator: Sendgo <dev@sendgo.io>\n"
 "Language-Team: Korean\n"
@@ -101,3 +101,15 @@ msgid ""
 msgstr ""
 "Sendgo로 카카오 알림톡·브랜드메시지와 SMS/LMS/MMS를 발송합니다. WooCommerce 주문 상태가 변경되면 구매자에게 "
 "자동으로 알림을 보냅니다."
+
+#. 작성자 및 URL은 원문 유지
+msgid "https://sendgo.io"
+msgstr "https://sendgo.io"
+
+#. 작성자 및 URL은 원문 유지
+msgid "amuz"
+msgstr "amuz"
+
+#. 작성자 및 URL은 원문 유지
+msgid "https://github.com/send-go/wordpress"
+msgstr "https://github.com/send-go/wordpress"

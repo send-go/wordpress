@@ -3,7 +3,7 @@ Contributors: amuz
 Tags: kakao, alimtalk, sms, woocommerce, notification
 Requires at least: 6.0
 Tested up to: 7.1
-Stable tag: 1.5.1
+Stable tag: 1.5.2
 Requires PHP: 8.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
@@ -120,6 +120,11 @@ order or a status change triggered by another plugin will not send a duplicate.
 1. Sendgo API credentials and WooCommerce order notification settings. / API 인증 정보와 주문 상태별 알림 설정.
 
 == Changelog ==
+
+= 1.5.2 =
+* WordPress.org 번역 목록의 21개 항목을 한국어 번들에 모두 포함했습니다.
+* 별도 언어팩 설치나 승인 대기 없이 한국어 번역을 사용할 수 있습니다.
+
 
 = 1.5.1 =
 * 한국어 관리자 화면 번역을 번들하고 한국어 사용 안내를 추가했습니다.

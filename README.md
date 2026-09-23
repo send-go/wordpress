@@ -468,3 +468,5 @@ if ($client !== null) {
 번역 원본은 `.po`, 번역 대상 목록은 `sendgo.pot`입니다. 수정 후 `msgfmt --check languages/sendgo-ko_KR.po -o languages/sendgo-ko_KR.mo`로 컴파일합니다.
 공식 소개는 `readme.txt`에 한국어와 영어를 함께 제공합니다. WordPress.org에서 배포하는 별도 언어팩과 플러그인에 포함된 번역은 독립적입니다.
 디렉터리 이미지의 원본과 배포 규칙은 `.wordpress-org/README.md`를 참고하세요.
+
+한국어 번역은 플러그인 배포본에 기본 포함하여 관리합니다(1.5.2 기준 21개 항목). WordPress.org 공식 승인을 받은 별도 언어팩이라는 의미는 아닙니다. 사이트 또는 사용자 언어가 한국어일 때 자동 적용되며, 이후 공식 언어팩이 설치되면 WordPress 기본 규칙에 따라 그 번역이 우선합니다.
