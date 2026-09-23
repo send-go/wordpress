@@ -3,7 +3,7 @@ Contributors: amuz
 Tags: kakao, alimtalk, sms, woocommerce, notification
 Requires at least: 6.0
 Tested up to: 7.0
-Stable tag: 1.4.0
+Stable tag: 1.5.0
 Requires PHP: 8.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
@@ -95,6 +95,9 @@ No. Each order status is recorded on the order once its notification succeeds, s
 order or a status change triggered by another plugin will not send a duplicate.
 
 == Changelog ==
+
+= 1.5.0 =
+* 코어 1.5 연동으로 템플릿 폴더 관리와 폴더 필터를 지원합니다.
 
 = 1.4.0 =
 * 계정 API 클라이언트와 코어 1.4 의존성을 추가했습니다.

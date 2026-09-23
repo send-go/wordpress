@@ -8,7 +8,7 @@
     "authors": [{"name": "Sendgo", "email": "dev@sendgo.io"}],
     "require": {
         "php": ">=8.2",
-        "sendgo/php": "^1.4"
+        "sendgo/php": "^1.5"
     },
     "autoload": {
         "classmap": ["includes/"]
