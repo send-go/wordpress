@@ -1,0 +1,103 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Sendgo 1.5.1\n"
+"PO-Revision-Date: 2026-09-24 00:00+0900\n"
+"Last-Translator: Sendgo <dev@sendgo.io>\n"
+"Language-Team: Korean\n"
+"Language: ko_KR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: sendgo.php:48
+msgid ""
+"Sendgo: the core SDK (sendgo/php) could not be found, so no message can be "
+"sent. Run \"composer install\" in the plugin directory, or reinstall using "
+"the distributed zip, which includes the vendor directory."
+msgstr ""
+"Sendgo: 코어 SDK(sendgo/php)를 찾을 수 없어 메시지를 발송할 수 없습니다. 플러그인 폴더에서 \"composer "
+"install\"을 실행하거나 vendor 폴더가 포함된 배포 ZIP으로 다시 설치하세요."
+
+#: includes/class-sendgo-settings.php:46
+msgid "Sendgo Settings"
+msgstr "Sendgo 설정"
+
+#: includes/class-sendgo-settings.php:47
+msgid "Sendgo"
+msgstr "Sendgo"
+
+#: includes/class-sendgo-settings.php:71
+msgid "API Credentials"
+msgstr "API 인증 정보"
+
+#: includes/class-sendgo-settings.php:78
+msgid "Access Key"
+msgstr "액세스 키 (Access Key)"
+
+#: includes/class-sendgo-settings.php:79
+msgid "Secret Key"
+msgstr "시크릿 키 (Secret Key)"
+
+#: includes/class-sendgo-settings.php:80
+msgid "Kakao Sender Key"
+msgstr "카카오 발신 키"
+
+#: includes/class-sendgo-settings.php:81
+msgid "SMS Sender Key"
+msgstr "문자 발신 키"
+
+#: includes/class-sendgo-settings.php:100
+msgid "API Version"
+msgstr "API 버전"
+
+#: includes/class-sendgo-settings.php:109
+msgid "WooCommerce Order Notifications"
+msgstr "WooCommerce 주문 알림"
+
+#: includes/class-sendgo-settings.php:117
+msgid "[Order completed] Alimtalk template code"
+msgstr "[주문 완료] 알림톡 템플릿 코드"
+
+#: includes/class-sendgo-settings.php:118
+msgid "[Order completed] SMS text used if Alimtalk fails"
+msgstr "[주문 완료] 알림톡 실패 시 대체 문자 내용"
+
+#: includes/class-sendgo-settings.php:119
+msgid "[Processing] Alimtalk template code"
+msgstr "[처리 중] 알림톡 템플릿 코드"
+
+#: includes/class-sendgo-settings.php:120
+msgid "[Processing] SMS text used if Alimtalk fails"
+msgstr "[처리 중] 알림톡 실패 시 대체 문자 내용"
+
+#: includes/class-sendgo-settings.php:219
+msgid ""
+"Enter the credentials issued to you in the Sendgo console at "
+"https://sendgo.io."
+msgstr "Sendgo 콘솔(https://sendgo.io)에서 발급받은 인증 정보를 입력하세요."
+
+#: includes/class-sendgo-settings.php:227
+msgid ""
+"When a WooCommerce order changes status, an Alimtalk message is sent to the "
+"buyer. Each status is configured separately, and a status left blank sends "
+"nothing."
+msgstr ""
+"WooCommerce 주문 상태가 변경되면 구매자에게 알림톡을 보냅니다. 상태별로 각각 설정하며, 비워 둔 상태에서는 발송하지 않습니다."
+
+#: includes/class-sendgo-settings.php:228
+msgid ""
+"The order number is passed as the first template variable (#{var1}). In the "
+"SMS text you can use the {order_number} placeholder."
+msgstr ""
+"주문 번호는 첫 번째 템플릿 변수(#{var1})로 전달됩니다. 문자 내용에는 {order_number}를 사용할 수 있습니다."
+
+#. 플러그인 설명
+#: sendgo.php:5
+msgid ""
+"Send Kakao Alimtalk, Kakao Brand Message and SMS/LMS/MMS through Sendgo. "
+"Notifies WooCommerce buyers automatically when an order changes status."
+msgstr ""
+"Sendgo로 카카오 알림톡·브랜드메시지와 SMS/LMS/MMS를 발송합니다. WooCommerce 주문 상태가 변경되면 구매자에게 "
+"자동으로 알림을 보냅니다."

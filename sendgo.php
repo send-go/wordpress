@@ -3,7 +3,7 @@
  * Plugin Name:       Sendgo
  * Plugin URI:        https://github.com/send-go/wordpress
  * Description:       Send Kakao Alimtalk, Kakao Brand Message and SMS/LMS/MMS through Sendgo. Notifies WooCommerce buyers automatically when an order changes status.
- * Version:           1.5.0
+ * Version:           1.5.1
  * Requires at least: 6.0
  * Requires PHP:      8.2
  * Author:            amuz
@@ -11,6 +11,7 @@
  * License:           MIT
  * License URI:       https://opensource.org/licenses/MIT
  * Text Domain:       sendgo
+ * Domain Path:       /languages
  *
  * @package Sendgo
  */
@@ -19,9 +20,14 @@
 defined('ABSPATH') || exit;
 
 // 플러그인 상수 정의.
-define('SENDGO_VERSION', '1.5.0');
+define('SENDGO_VERSION', '1.5.1');
 define('SENDGO_PLUGIN_FILE', __FILE__);
 define('SENDGO_PLUGIN_DIR', plugin_dir_path(__FILE__));
+
+// 번들 번역 경로는 init 시점에 등록하여 이른 번역 로딩을 피한다.
+add_action('init', static function (): void {
+    load_plugin_textdomain('sendgo', false, dirname(plugin_basename(__FILE__)) . '/languages');
+});
 
 // Composer 오토로더 로드 (sendgo/php 코어 및 플러그인 클래스 포함).
 // 배포 zip 에는 vendor/ 가 포함되어 있다. 소스에서 직접 받은 경우에만 없을 수 있다.

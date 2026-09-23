@@ -461,3 +461,10 @@ if ($client !== null) {
 ```
 
 코어 1.5.0 이상이 필요합니다. 전체 메서드는 [코어 문서](https://github.com/send-go/php#템플릿-폴더-150)를 참고하세요.
+
+## 한국어와 WordPress.org 브랜딩
+
+한국어(`ko_KR`) 관리자 화면은 `languages/sendgo-ko_KR.mo`를 번들하여 별도 언어팩 없이 제공합니다.
+번역 원본은 `.po`, 번역 대상 목록은 `sendgo.pot`입니다. 수정 후 `msgfmt --check languages/sendgo-ko_KR.po -o languages/sendgo-ko_KR.mo`로 컴파일합니다.
+공식 소개는 `readme.txt`에 한국어와 영어를 함께 제공합니다. WordPress.org에서 배포하는 별도 언어팩과 플러그인에 포함된 번역은 독립적입니다.
+디렉터리 이미지의 원본과 배포 규칙은 `.wordpress-org/README.md`를 참고하세요.

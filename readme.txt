@@ -2,8 +2,8 @@
 Contributors: amuz
 Tags: kakao, alimtalk, sms, woocommerce, notification
 Requires at least: 6.0
-Tested up to: 7.0
-Stable tag: 1.5.0
+Tested up to: 7.1
+Stable tag: 1.5.1
 Requires PHP: 8.2
 License: MIT
 License URI: https://opensource.org/licenses/MIT
@@ -11,6 +11,27 @@ License URI: https://opensource.org/licenses/MIT
 Send Kakao Alimtalk, Kakao Brand Message and SMS/LMS/MMS through Sendgo, including automatic WooCommerce order notifications.
 
 == Description ==
+
+= 한국어 안내 =
+
+Sendgo(센드고)는 워드프레스와 WooCommerce에서 카카오 알림톡·브랜드메시지와 SMS/LMS/MMS를 발송할 수 있는 공식 플러그인입니다. Sendgo 계정이 필요하며 메시지 발송은 유료 서비스입니다.
+
+* 워드프레스 관리자 **설정 > Sendgo**에서 API 인증 정보와 발신 키를 입력합니다.
+* WooCommerce 주문이 **처리 중** 또는 **완료**로 변경되면 구매자의 청구 전화번호로 알림을 보냅니다. 상태별 템플릿 코드와 대체 문자 내용을 각각 설정할 수 있습니다.
+* 템플릿 코드와 대체 문자 내용이 모두 비어 있는 주문 상태에서는 발송하지 않습니다.
+* 알림톡 템플릿에는 주문 번호가 `#{var1}`로 전달됩니다. 대체 문자 내용에서는 `{order_number}`를 사용할 수 있습니다.
+* 한국어 사이트에서는 설정 화면이 자동으로 한국어로 표시됩니다. 번역 파일이 포함되어 별도 언어팩 설치가 필요하지 않습니다.
+* WooCommerce 없이도 개발자가 플러그인의 클라이언트를 통해 직접 발송할 수 있습니다.
+
+**설치:** 플러그인을 설치·활성화한 뒤 설정 > Sendgo에서 [Sendgo 콘솔](https://sendgo.io)의 인증 정보를 입력하세요. WordPress.org 설치 ZIP에는 PHP SDK가 포함되어 Composer를 따로 실행할 필요가 없습니다.
+
+**개인정보 및 외부 서비스:** 발송 전 Access Key와 Secret Key를 Sendgo API로 전송해 인증 토큰을 발급받습니다. 주문 알림 발송 시 구매자 전화번호, 주문 번호, 발신 키, 템플릿 코드 또는 문자 내용이 https://sendgo.io 로 전송됩니다. 직접 발송 시에는 전달한 수신번호와 메시지 내용이 전송됩니다. 설치·활성화만으로는 데이터를 전송하지 않습니다. 인증 정보는 서버의 WordPress 옵션에 저장됩니다.
+
+서비스 제공자: amuz / Sendgo. [이용약관](https://sendgo.io/terms-of-service) · [개인정보처리방침](https://sendgo.io/privacy-policy)
+
+**문제 해결:** 알림이 오지 않으면 주문 상태별 템플릿·대체 문자 설정과 청구 전화번호를 확인하세요. 발송 실패는 WooCommerce 로그의 `sendgo` 항목에 기록되며 주문 처리를 중단하지 않습니다. 발송이 성공한 주문 상태는 기록하여 같은 상태 알림이 중복 발송되지 않도록 합니다.
+
+= English =
 
 Sendgo (https://sendgo.io) is a Korean business messaging service owned and operated by amuz,
 the author of this plugin. This is the official Sendgo plugin, and it connects your WordPress or
@@ -94,7 +115,16 @@ to the WooCommerce log under the "sendgo" source and never interrupt the order f
 No. Each order status is recorded on the order once its notification succeeds, so re-saving an
 order or a status change triggered by another plugin will not send a duplicate.
 
+== Screenshots ==
+
+1. Sendgo API credentials and WooCommerce order notification settings. / API 인증 정보와 주문 상태별 알림 설정.
+
 == Changelog ==
+
+= 1.5.1 =
+* 한국어 관리자 화면 번역을 번들하고 한국어 사용 안내를 추가했습니다.
+* 공식 Sendgo 로고, 디렉터리 아이콘·배너 및 실제 설정 화면 스크린샷을 추가했습니다.
+
 
 = 1.5.0 =
 * 코어 1.5 연동으로 템플릿 폴더 관리와 폴더 필터를 지원합니다.

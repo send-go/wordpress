@@ -198,6 +198,7 @@ class Sendgo_Settings
         }
         ?>
         <div class="wrap">
+            <img src="<?php echo esc_url(plugins_url('assets/logo.svg', SENDGO_PLUGIN_FILE)); ?>" alt="Sendgo" width="180" height="56" style="margin:20px 0 8px" />
             <h1><?php echo esc_html__('Sendgo Settings', 'sendgo'); ?></h1>
             <form action="options.php" method="post">
                 <?php

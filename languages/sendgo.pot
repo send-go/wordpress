@@ -1,0 +1,95 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Sendgo 1.5.1\n"
+"PO-Revision-Date: 2026-09-24 00:00+0900\n"
+"Last-Translator: Sendgo <dev@sendgo.io>\n"
+"Language-Team: Korean\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: sendgo.php:48
+msgid ""
+"Sendgo: the core SDK (sendgo/php) could not be found, so no message can be "
+"sent. Run \"composer install\" in the plugin directory, or reinstall using "
+"the distributed zip, which includes the vendor directory."
+msgstr ""
+
+#: includes/class-sendgo-settings.php:46
+msgid "Sendgo Settings"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:47
+msgid "Sendgo"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:71
+msgid "API Credentials"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:78
+msgid "Access Key"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:79
+msgid "Secret Key"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:80
+msgid "Kakao Sender Key"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:81
+msgid "SMS Sender Key"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:100
+msgid "API Version"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:109
+msgid "WooCommerce Order Notifications"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:117
+msgid "[Order completed] Alimtalk template code"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:118
+msgid "[Order completed] SMS text used if Alimtalk fails"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:119
+msgid "[Processing] Alimtalk template code"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:120
+msgid "[Processing] SMS text used if Alimtalk fails"
+msgstr ""
+
+#: includes/class-sendgo-settings.php:219
+msgid ""
+"Enter the credentials issued to you in the Sendgo console at "
+"https://sendgo.io."
+msgstr ""
+
+#: includes/class-sendgo-settings.php:227
+msgid ""
+"When a WooCommerce order changes status, an Alimtalk message is sent to the "
+"buyer. Each status is configured separately, and a status left blank sends "
+"nothing."
+msgstr ""
+
+#: includes/class-sendgo-settings.php:228
+msgid ""
+"The order number is passed as the first template variable (#{var1}). In the "
+"SMS text you can use the {order_number} placeholder."
+msgstr ""
+
+#. 플러그인 설명
+#: sendgo.php:5
+msgid ""
+"Send Kakao Alimtalk, Kakao Brand Message and SMS/LMS/MMS through Sendgo. "
+"Notifies WooCommerce buyers automatically when an order changes status."
+msgstr ""
