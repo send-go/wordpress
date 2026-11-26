@@ -2,7 +2,7 @@
 Contributors: amuz
 Tags: kakao, alimtalk, sms, woocommerce, notification
 Requires at least: 6.0
-Tested up to: 7.1
+Tested up to: 7.2
 Stable tag: 1.6.0
 Requires PHP: 8.2
 License: MIT
